@@ -2,13 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Userinfo = require('./User_info');
+const Orderinfo = require('./Order_info');
 
 const app = express();
 const port = 3005;
 
 // Connection URL
 const url =
-  'mongodb://rabby11011:rabby123@ac-1t537zc-shard-00-00.chyecsy.mongodb.net:27017,ac-1t537zc-shard-00-01.chyecsy.mongodb.net:27017,ac-1t537zc-shard-00-02.chyecsy.mongodb.net:27017/sillyshop?ssl=true&replicaSet=atlas-4sjq8m-shard-0&authSource=admin&retryWrites=true&w=majority';
+  'mongodb+srv://rabby11011:rabby123@cluster0.chyecsy.mongodb.net/sillyshop?retryWrites=true&w=majority';
 
 // Connect to MongoDB
 mongoose
@@ -41,7 +42,31 @@ app.post('/userinfo/check', async (req, res) => {
   }
 });
 
+// order api
+app.post('/order/confirm', async (req, res) => {
+  const orderdetails = req.body;
+  console.log(orderdetails);
+  try {
+    const data = await Orderinfo.create(orderdetails);
+    res.status(201).send(data);
+    console.log("order stored successfully");
+  } catch (err) { 
+    res.status(500).send(err.message); 
+  }
+});
 
+//order details retrive api for sillyshop admin
+app.get('/order/details', async (req, res) => {
+  try {
+    const data = await Orderinfo.find().exec();
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+
+//user information retrive api for bank
 app.get('/userinfo/retrive', async (req, res) => {
   try {
     const data = await Userinfo.find().exec();

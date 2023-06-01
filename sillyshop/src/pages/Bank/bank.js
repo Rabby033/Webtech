@@ -9,7 +9,6 @@ export const Bank = () => {
 
   const checkuser = e => {
     e.preventDefault()
-
     axios
       .post('/userinfo/check', { customer_name, email, accountNumber, Balance })
       .then(() => {

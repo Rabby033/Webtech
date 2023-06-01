@@ -1,38 +1,46 @@
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import axios from '../../axios'
 
 export const Admin = () => {
+  const [retriveorder, setretriveorder] = useState([])
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const response = await axios.get('order/details')
+      setretriveorder(response.data)
+    }
+    fetchdata()
+    console.log(retriveorder)
+  }, [])
+
   return (
     <div>
       <h3>Order List</h3>
       <table>
         <thead>
-          <th>Order id</th>
-          <th>UserEmail</th>
-          <th>TotalCost($)</th>
-          <th>OrderDate</th>
-          <th>Action</th>
+          <tr>
+            <th>Order id</th>
+            <th>UserEmail</th>
+            <th>TotalCost($)</th>
+            <th>OrderDate</th>
+            <th>Action</th>
+          </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>005</td>
-            <td>Alex@gmail.com</td>
-            <td>500</td>
-            <td>31/05/23</td>
-            <td>
-              <button>Aprove</button>
-              <button>Cancel</button>
-            </td>
-          </tr>
-          <tr>
-            <td>006</td>
-            <td>Bob@gmail.com</td>
-            <td>700</td>
-            <td>30/05/23</td>
-            <td>
-              <button>Aprove</button>
-              <button>Cancel</button>
-            </td>
-          </tr>
+          {retriveorder.map((order, index) => (
+            <tr key={index}>
+              <td>006</td>
+              <td>{order.email}</td>
+              <td>{order.amount}</td>
+              <td>{order.date}</td>
+              <td>
+                <button>Aprove</button>
+                <button>Cancel</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
