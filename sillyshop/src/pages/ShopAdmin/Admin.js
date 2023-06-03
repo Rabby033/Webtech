@@ -30,8 +30,8 @@ export const Admin = () => {
         </thead>
         <tbody>
           {retriveorder.map((order, index) => (
-            <tr key={index}>
-              <td>006</td>
+             <tr key={index}>
+              <td>{index+1}</td>
               <td>{order.email}</td>
               <td>{order.amount}</td>
               <td>{order.date}</td>

@@ -6,6 +6,7 @@ import { Shopstate } from './context/Shopcontext'
 import Payment from './pages/payment/Payment'
 import {Bank} from './pages/Bank/bank'
 import {Admin} from './pages/ShopAdmin/Admin'
+import {Loading} from './pages/payment/Loading'
 
 function App () {
   return (
@@ -19,6 +20,7 @@ function App () {
             <Route path='/payment' element={<Payment/>}></Route>
             <Route path='/bank' element={<Bank/>}></Route>
             <Route path='/admin' element={<Admin/>}></Route>
+            <Route path='/loading' element={<Loading/>}></Route>
           </Routes>
         </Router>
       </Shopstate>
