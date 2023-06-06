@@ -2,6 +2,7 @@
   display: inline-block;
   position: fixed;
   width: 80px;
+  margin-top: 10%;
   height: 80px;
   margin-left: 45%;
 }
@@ -83,3 +84,36 @@
     transform: rotate(360deg);
   }
 }
+.loading{
+  margin-top: 20%;
+  display: inline-block;
+  font-size: larger;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: 40%;
+  position: fixed;
+}
+.image_card {
+  position: fixed;
+  flex-direction: column;
+  margin-left: 22%;
+  align-items: center;
+  margin-top: 3%;
+  justify-content: center;
+  width: 50%;
+  height: 50%;
+}
+
+.image_card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+}
+.image_card p{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: larger;
+  margin-left: 35%;
+}
+
+
+
+

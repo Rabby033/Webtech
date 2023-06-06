@@ -8,7 +8,7 @@ export const Bank = () => {
   const [Balance, setBalance] = useState('')
 
   const checkuser = e => {
-    e.preventDefault()
+    // e.preventDefault()
     axios
       .post('/userinfo/check', { customer_name, email, accountNumber, Balance })
       .then(() => {

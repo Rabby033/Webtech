@@ -1,0 +1,204 @@
+.main-container
+{
+  /* background-color: #14e829; */
+  height: 85vh;
+  min-height: 100%; 
+}
+.admin-container {
+    display: flex;
+    
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #f2f2f2;
+    padding: 10px;
+  }
+  
+  .sidebar button {
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .sidebar button:hover,
+  .sidebar button.active {
+    background-color: #e1e1e1;
+  }
+  
+  .sidebar-icon {
+    margin-right: 8px; /* Add margin between icon and text */
+  }
+  
+  .content {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .dashboard-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; /* Add gap between the cards */
+    margin-bottom: 50px;
+  }
+  
+  .card {
+    flex-basis: calc(33.33% - 20px); /* Adjust the width of each card as needed */
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease; /* Add transition for hover effect */
+
+    display: flex;
+    flex-direction: row;
+   text-align: center; 
+    padding: 16px;
+  }
+  .card-content {
+    display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-self: flex-start;
+  margin-bottom: 10px; /* Space between logo and name */
+  }
+  
+  .card:hover {
+    background-color: #e1e1e1; /* Change background color on hover */
+  }
+  
+  .card-icon {
+    font-size: 40px;
+    margin-right: 8px;
+  }
+  
+  .card-name {
+    font-size: 18px;
+    margin: 0;
+  }
+  .card-title {
+    font-size: 18px;
+    margin-top: 20px; 
+    margin-bottom: 8px;
+  }
+  
+  .card-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: auto; 
+  }
+  
+  .order-card {
+    background-color: #e6d736; 
+    /* Change background color for order card */
+  }
+  
+  .customer-card {
+    background-color: #f522ee; /* Change background color for customer card */
+  }
+  
+  .revenue-card {
+    background-color: #14e829; /* Change background color for revenue card */
+  }
+  .tableandnot{
+  display: flex;
+  justify-content: space-between;
+  }
+  .notification-container{
+      width: 50%;
+
+  }
+  .notification-card {
+     background-color: #f1eaef; 
+     height: 100%;
+    border-radius: 6px;
+    padding: 10px;
+     margin-top: 10px; 
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .notification-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .notification-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .notification-item {
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recentorder {
+    margin-top: 5px;
+    margin-right: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recentorder th,
+  .recentorder td {
+    padding: 10px;
+  }
+  
+  .recentorder thead th {
+    background-color: #f4f4f4;
+    text-align: left;
+  }
+  
+  .recentorder tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .recentorder tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .recentorder th,
+  .recentorder td {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .recentorder td:last-child {
+    text-align: center;
+  }
+  
+  .recentorder td:first-child,
+  .recentorder th:first-child {
+    padding-left: 20px;
+  }
+  
+  .recentorder td:last-child {
+    padding-right: 20px;
+  }
+  .approve-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    background-color: #0ccdf9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .approve-button:hover {
+    background-color: #519fb1;
+  }
