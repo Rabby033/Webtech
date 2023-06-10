@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartBar, faUser, faList } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -12,33 +13,10 @@ import './admin.css' // Import CSS file for styling
 export const Admin = () => {
   const [retriveorder, setretriveorder] = useState([])
   const [selectedOption, setSelectedOption] = useState('dashboard') // Default selected option is 'dashboard'
-  const [notifications, setNotifications] = useState([
-    // Static notifications (replace with dynamic data later)
-    {
-      id: 1,
-      message: 'Order id no 5 is supplied today'
-    },
-    {
-      id: 2,
-      message: 'Order id no 12 is supplied yesterday'
-    },
-    {
-      id: 3,
-      message: 'Order id no 8 is supplied yesterday'
-    },
-    {
-      id: 4,
-      message: 'Order id no 7 is supplied right now'
-    },
-    {
-      id: 5,
-      message: 'Order id no 10 is supplied 5th june'
-    }
-  ])
-
   useEffect(() => {
     const fetchdata = async () => {
       const response = await axios.get('order/details')
+      console.log(response.data)
       setretriveorder(response.data)
     }
 
@@ -89,13 +67,6 @@ export const Admin = () => {
             <FontAwesomeIcon icon={faList} className='sidebar-icon' />
             Orders
           </button>
-          <button
-            className={selectedOption === 'pastorders' ? 'active' : ''}
-            onClick={() => handleOptionChange('pastorders')}
-          >
-            <FontAwesomeIcon icon={faList} className='sidebar-icon' />
-            Past Orders
-          </button>
         </div>
         <div className='content'>
           {selectedOption === 'dashboard' ? (
@@ -132,103 +103,103 @@ export const Admin = () => {
                 <table className='recentorder'>
                   <thead>
                     <tr>
-                      <th>Customer Name</th>
-                      <th>Product Name</th>
-                      <th>Order Date</th>
-                      <th>Total Cost</th>
+                      <th>OrderId</th>
+                      <th>Customer</th>
+                      <th>Date($)</th>
                       <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>alex</td>
-                      <td>Bob</td>
-                      <td>12 June, 2023</td>
-                      <td>1344</td>
-                      <td>pending</td>
-                    </tr>
-                    <tr>
-                      <td>alex</td>
-                      <td>Bob</td>
-                      <td>12 June, 2023</td>
-                      <td>1344</td>
-                      <td>pending</td>
-                    </tr>
-                    <tr>
-                      <td>alex</td>
-                      <td>Bob</td>
-                      <td>12 June, 2023</td>
-                      <td>1344</td>
-                      <td>pending</td>
-                    </tr>
-                    <tr>
-                      <td>alex</td>
-                      <td>Bob</td>
-                      <td>12 June, 2023</td>
-                      <td>1344</td>
-                      <td>pending</td>
-                    </tr>
-                    <tr>
-                      <td>alex</td>
-                      <td>Bob</td>
-                      <td>12 June, 2023</td>
-                      <td>1344</td>
-                      <td>pending</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className='notification-container'>
-                  <div className='notification-card'>
-                    <h3 className='notification-title'>Recent Notification</h3>
-                    <ul className='notification-list'>
-                      {notifications.slice(0, 5).map(notification => (
-                        <li key={notification.id} className='notification-item'>
-                          {notification.message}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) :selectedOption==='pastorders'?((
-            <div>this is past order</div>
-          ))
-          : selectedOption === 'customers' ? (
-            <h3>Customers</h3>
-          ) : 
-           ((
-              <div>
-                <h3>Pending order</h3>
-                <table className='recentorder'>
-                  <thead>
-                    <tr>
-                      <th>Order id</th>
-                      <th>UserEmail</th>
-                      <th>TotalCost($)</th>
-                      <th>OrderDate</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {retriveorder.map((order, index) => (
+                    {retriveorder.slice(0, 5).map((order, index) => (
                       <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{order.email}</td>
-                        <td>{order.amount}</td>
+                        <td>{order.orderid}</td>
+                        <td>{order.customername}</td>
                         <td>{order.date}</td>
-                        <td>
-                          <button className='approve-button'>Approve</button>
+                        <td
+                          className={
+                            order.status === 'Pending'
+                              ? 'pending-status'
+                              : order.status === 'Approved'
+                              ? 'approved-status'
+                              : order.status === 'Delivered'
+                              ? 'delivered-status'
+                              : ''
+                          }
+                        >
+                          {order.status}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            )
-          )
-          }
+            </div>
+          ) : selectedOption === 'pastorders' ? (
+            <div>this is past order</div>
+          ) : selectedOption === 'customers' ? (
+            <div>
+              <table className='customer'>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Adress</th>
+                    <th>AccountNumber</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Abu Hanifa</td>
+                    <td>abuhanifa@gmail.com</td>
+                    <td>Akhalia,sylhet</td>
+                    <td>2018331213</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div>
+              <h3>All order</h3>
+              <table className='recentorder'>
+                <thead>
+                  <tr>
+                    <th>OrderId</th>
+                    <th>Customer</th>
+                    <th>Date($)</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {retriveorder.map((order, index) => (
+                    <tr key={index}>
+                      <td>{order.orderid}</td>
+                      <td>{order.customername}</td>
+                      <td>{order.date}</td>
+                      <td
+                        className={
+                          order.status === 'Pending'
+                            ? 'pending-status'
+                            : order.status === 'Approved'
+                            ? 'approved-status'
+                            : order.status === 'Delivered'
+                            ? 'delivered-status'
+                            : ''
+                        }
+                      >
+                        {order.status}
+                      </td>
+                      <td>
+                        <Link to='/admin/details' state={{ order: order }}>
+                          <button className='details-btn'>Details</button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>

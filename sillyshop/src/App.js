@@ -7,6 +7,7 @@ import Payment from './pages/payment/Payment'
 import {Bank} from './pages/Bank/bank'
 import {Admin} from './pages/ShopAdmin/Admin'
 import {Loading} from './pages/payment/Loading'
+import {Details} from './pages/ShopAdmin/Details'
 
 function App () {
   return (
@@ -21,6 +22,7 @@ function App () {
             <Route path='/bank' element={<Bank/>}></Route>
             <Route path='/admin' element={<Admin/>}></Route>
             <Route path='/loading' element={<Loading/>}></Route>
+            <Route path='/admin/details' element={<Details/>}></Route>
           </Routes>
         </Router>
       </Shopstate>
