@@ -11,6 +11,7 @@ export default function Navbar() {
            <Link to='/cart'>
             <ShoppingCart size={32}/>
            </Link>
+           <Link to='/'>Logout</Link>
         </div>
     </div>
   )

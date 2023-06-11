@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const Userinfo = require('./User_info')
+const Userinfo = require('./usermdl');
 const Orderinfo = require('./Order_info')
 const SupplyInfo = require('./Supplier_order')
 
@@ -28,6 +28,78 @@ mongoose
 // Middleware
 app.use(express.json())
 app.use(cors())
+
+
+app.post('/api/signup', async (req, res) => {
+  const { email, name, password, address, account } = req.body;
+  const newUser = new Userinfo({
+    email,
+    name,
+    password,
+    account,
+    address,
+  });
+  
+
+  // Save the user to the database
+  newUser.save()
+    .then(() => {
+      res.status(200).json({ message: 'Signup successful' });
+    })
+    .catch((error) => {
+      console.error('Error saving user:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    });
+});
+
+
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email , password);
+
+  try {
+    // Find the user by email in the MongoDB collection
+    
+    const user = await Userinfo.findOne({ email });
+    console.log('User found:', user);
+    // console.log(user.password);
+    
+    if (user===null) {
+      // User does not exist
+      res.status(401).json({ message: 'Invalid credentials' });
+      return;
+    }
+    console.log(password);
+
+    // Compare the provided password with the stored password
+    const passwordMatch = password === user.password;
+    console.log(user.password);
+
+    if (passwordMatch) {
+      // Passwords match, login successful
+      res.json({ message: 'Login successful' });
+    } else {
+      // Passwords do not match
+      res.status(401).json({ message: 'Invalid credentials' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+app.get('/api/supplyinfo', async (req, res) => {
+  
+  try {
+    
+    const entries = await SupplyInfo.find();
+    res.json(entries);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
 
 //add new bank account api
 app.post('/userinfo/check', async (req, res) => {
