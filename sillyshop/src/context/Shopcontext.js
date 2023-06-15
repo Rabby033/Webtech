@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { products } from '../products'
 
 export const Shopcontext = createContext()
@@ -12,6 +12,7 @@ const getDefaultcart = () => {
 
 export const Shopstate = props => {
   const [cartItems, setcartItems] = useState(getDefaultcart)
+
   const addTocart = itemid => {
     setcartItems(prev => ({ ...prev, [itemid]: prev[itemid] + 1 }))
   }

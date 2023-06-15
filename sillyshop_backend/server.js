@@ -1,7 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const Userinfo = require('./usermdl');
+const userinfo = require('./usermdl');
+const Userinfo=require('./User_info');
 const Orderinfo = require('./Order_info')
 const SupplyInfo = require('./Supplier_order')
 
@@ -32,7 +33,7 @@ app.use(cors())
 
 app.post('/api/signup', async (req, res) => {
   const { email, name, password, address, account } = req.body;
-  const newUser = new Userinfo({
+  const newUser = new userinfo({
     email,
     name,
     password,
@@ -60,7 +61,7 @@ app.post('/api/login', async (req, res) => {
   try {
     // Find the user by email in the MongoDB collection
     
-    const user = await Userinfo.findOne({ email });
+    const user = await userinfo.findOne({ email });
     console.log('User found:', user);
     // console.log(user.password);
     
@@ -210,6 +211,24 @@ app.put('/cutamountfrom/customer', async (req, res) => {
       .json({ message: 'Reducing money from customer account is successfull' })
   }
 })
+//api for finding userinfo of specific user using mail
+
+app.get('/api/finduser', async (req, res) => {
+  const { user_email } = req.query;
+  try {
+    const user = await userinfo.findOne({ email: user_email }); // Use findOne to search for a single user
+    if (user) {
+      res.json(user);
+      // console.log(user)
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving user information' });
+  }
+});
+
+
 
 //user information retrive api for bank
 app.get('/userinfo/retrive', async (req, res) => {

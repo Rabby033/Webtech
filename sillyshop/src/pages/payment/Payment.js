@@ -12,6 +12,9 @@ export default function Payment () {
   const status = 'Pending'
   const { cartItems } = useContext(Shopcontext)
 
+  const user_email = localStorage.getItem('email')
+  // console.log(user_email);
+
   const [accno, setAccno] = useState(0)
   const [retriveuser, setretriveuser] = useState([])
   const [userBalance, setuserBalance] = useState(0)
@@ -24,6 +27,7 @@ export default function Payment () {
   const [isOrderFailed, setIsOrderFailed] = useState(false)
   const [customername, setcustomername] = useState('')
   const [address, setaddress] = useState('')
+  const [user_info, setuser_info] = useState('')
 
   //generate TrackinId
   function generateTrackingId () {
@@ -36,6 +40,23 @@ export default function Payment () {
   }
   const orderid = generateTrackingId()
   // console.log(orderid);
+
+  useEffect(() => {
+    axios
+      .get('/api/finduser', { params: { user_email } })
+      .then(response => {
+        const userData = response.data
+        setuser_info(userData)
+
+        setAccno(userData.account)
+        setcustomername(userData.name)
+        setaddress(userData.address)
+        setemail(userData.email)
+      })
+      .catch(error => {
+        console.error('Error:', error)
+      })
+  }, [])
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -57,25 +78,32 @@ export default function Payment () {
     // Retrieve current amount in bank account
     const bankinfo = retriveuser.find(user => user.accountNumber === 12345)
     setbankBalance(bankinfo.Balance)
-    console.log(bankBalance)
+
     setIsLoading(false) // Stop loading animation
   }
 
-  // store data
   const confirmOrder = e => {
     e.preventDefault()
     const date = new Date().toLocaleDateString()
     const bankNo = 12345
     const accountnumber = accno
 
-
     setIsSubmitClicked(true)
-     setIsLoading(true) // Start loading animation
+    setIsLoading(true) // Start loading animation
 
     const updatedAmount = bankBalance + amount
     console.log(updatedAmount)
     axios
-      .post('/order/confirm', { orderid, customername,  accountnumber,cartItems, amount,address,status,date })
+      .post('/order/confirm', {
+        orderid,
+        customername,
+        accountnumber,
+        cartItems,
+        amount,
+        address,
+        status,
+        date
+      })
       .then(() => {
         axios
           .put('/transfermoney/tobank', { bankNo, updatedAmount })
@@ -132,51 +160,54 @@ export default function Payment () {
   }
 
   return (
-    <div>
-      <h2>Your total cost: {amount}</h2>
-      <label>
-        Enter your account Number:
-        <input
-          type='number'
-          value={accno}
-          onChange={e => setAccno(e.target.value)}
-          required
-        />
-      </label>
-      <button onClick={search}>Search</button>
-      {isSearchClicked && userBalance > amount ? (
-        <div>
-          <h2>Current Balance: {userBalance}</h2>
-          <form>
-            <label>
-              CustomerName:
-              <input
-                type='text'
-                value={customername}
-                onChange={e => setcustomername(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Address:
-              <input
-                type='text'
-                value={address}
-                onChange={e => setaddress(e.target.value)}
-                required
-              />
-            </label>
-            <br />
+    <div className='main'>
+      {/* <h2>Your total cost: {amount}</h2> */}
+      {!isSearchClicked && <button onClick={search} className='btn'>Billing info</button>}
 
-            <button
-              type='submit'
-              onClick={confirmOrder}
-              disabled={isSubmitClicked}
-            >
-              Submit
-            </button>
-          </form>
+      {isSearchClicked && userBalance > amount ? (
+        <div className='proceed'>
+          <h2>Current Balance: {userBalance}</h2>
+          <div>
+            <form>
+              <div className='form-field'>
+                <label htmlFor='orderId'>Name</label>
+                <input
+                  type='text'
+                  value={customername}
+                  disabled
+                />
+              </div>
+              <div className='form-field'>
+                <label htmlFor='customerName'>Email:</label>
+                <input
+                  type='text'
+                  id='customerName'
+                  value={email}
+                  disabled
+                />
+              </div>
+              <div className='form-field'>
+                <label htmlFor='customerName'>Total:</label>
+                <input
+                  type='text'
+                  id='customerName'
+                  value={amount}
+                  disabled
+                />
+              </div>
+              <div className='form-field'>
+                <label htmlFor='address'>Address:</label>
+                <input
+                  type='text'
+                  id='address'
+                   value={address}
+                  disabled
+                />
+              </div>
+              <button type='button' onClick={confirmOrder} className='btn'>Confirm Order</button>
+            </form>
+          </div>
+
           {isSubmitClicked && !successMessage && (
             <p>You have failed to place the order.</p>
           )}

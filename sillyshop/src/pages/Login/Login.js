@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import axios from '../../axios';
+import {Shopcontext} from '../../context/Shopcontext'
 
 
 export const Login = () => {
+ 
+  const {addEmail} =useContext(Shopcontext);
+ 
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -35,6 +40,7 @@ export const Login = () => {
 
     if(role==="admin"){
       if(email==="admin@gmail.com" && password==="ab12"){
+        localStorage.setItem('email', email);
         navigate('/admin');
       }
       else{
@@ -44,6 +50,7 @@ export const Login = () => {
     
     if(role==="supplier"){
       if(email==="supplier@gmail.com" && password==="1234"){
+        localStorage.setItem('email', email);
         navigate('/supplier');
         return;
       }
@@ -70,21 +77,26 @@ export const Login = () => {
         // Login successful
         // const data = await response.json();
         console.log('Login successful:');
+        // console.log(email);
 
         // Reset the form fields
         setEmail('');
         setPassword('');
         setError('');
-
         
+       
+        localStorage.setItem('email', email);
         navigate('/shop');
+       
       } else {
         // Error logging in
+        localStorage.setItem('email', "bal");
         console.log(response.statusText);
         const errorData = await response.json();
         setError(errorData.message);
       }
     } catch (error) {
+      // localStorage.setItem('email', "bal");
       console.error('Error:', error);
       setError('Wrong password/Email');
     }
