@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import './details.css'
 import { products } from '../../products'
 import { Single_product } from './Single_product'
@@ -7,6 +8,7 @@ import axios from './../../axios'
 import { Loading } from '../payment/Loading'
 
 export const Details = () => {
+  const navigate = useNavigate();
   const location = useLocation()
   const { order } = location.state
   const selected_items = order.cartItems
@@ -37,6 +39,7 @@ export const Details = () => {
           .put('/adminorder/status', { orderid })
           .then(() => {
             setIsLoading(false)
+            navigate('/admin');
           })
           .catch(error => alert(error.message))
       })
@@ -97,7 +100,7 @@ export const Details = () => {
             <input
               type='text'
               value={order.address}
-              disabled
+              // disabled
               className='levelname'
             />
             <br />

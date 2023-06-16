@@ -3,7 +3,9 @@ import {Shopcontext} from '../../context/Shopcontext'
 
 export const Product = (props) => {
   const { id, productName, price, productImage } = props.data;
- 
+  const email=props.val;
+  // console.log(email);
+
   const {addTocart,cartItems} =useContext(Shopcontext);
   
   return (

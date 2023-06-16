@@ -24,8 +24,8 @@ export const Bank = () => {
     useEffect(() => {
       const fetchdata = async () => {
         const response = await axios.get('/userinfo/retrive')
-        //  console.log(data)
-        setretriveuser(response.data)
+          // console.log(response.data)
+         setretriveuser(response.data)
       }
       fetchdata()
     }, [])

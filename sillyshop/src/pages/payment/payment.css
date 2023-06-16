@@ -113,7 +113,50 @@
   font-size: larger;
   margin-left: 35%;
 }
+/* start here */
+.main{
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
+.proceed {
+  background-color: #f4f4f4;
+  border-radius: 20px;
+  /* margin-top: px; */
+  padding: 20px;
+  width: 450px;
+  margin: 0 auto;
+}
 
+.form-field {
+  margin-bottom: 10px;
+}
 
+label {
+  font-weight: bold;
+}
 
-
+input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+.btn{
+  width: 150px;
+  height: 40px;
+  color: rgb(4, 4, 4);
+  border: none;
+  border-radius: 8px;
+  margin-left: 200px;
+  border: 2px solid rgb(19, 19, 19);
+  margin: 10px;
+  cursor: pointer;
+}
+.btn:hover{
+  background-color: rgb(19, 19, 19);
+  color: white;
+  cursor: pointer;
+}
