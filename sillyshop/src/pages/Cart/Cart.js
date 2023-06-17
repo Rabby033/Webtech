@@ -3,6 +3,7 @@ import { products } from '../../products'
 import { Shopcontext } from '../../context/Shopcontext'
 import { CartItem } from './CartItem'
 import { Link, useNavigate } from 'react-router-dom'
+import Navbar from '../../components/Navbar'
 
 export const Cart = () => {
   const { cartItems, getTotalAmount } = useContext(Shopcontext)
@@ -15,6 +16,8 @@ export const Cart = () => {
   }
 
   return (
+    <div>
+      <Navbar/>
     <div className='cart'>
       <div>
         <h1>Your Cart items</h1>
@@ -36,6 +39,7 @@ export const Cart = () => {
       ) : (
         <h1>Your card is empty</h1>
       )}
+    </div>
     </div>
   )
 }

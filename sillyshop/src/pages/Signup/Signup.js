@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './signup.css';
 import axios from '../../axios';
+import Navbar from '../../components/Navbar';
 
 
 export const Signup = () => {
@@ -77,6 +78,8 @@ export const Signup = () => {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="signup-container">
       <div className="signup-background"></div>
       <div className="col-md-6">
@@ -146,6 +149,7 @@ export const Signup = () => {
         </form>
         <p>Already have an account? <Link to="/">login</Link></p>
       </div>
+    </div>
     </div>
   );
 };

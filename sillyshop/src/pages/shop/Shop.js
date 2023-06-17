@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { products } from '../../products';
 import { Product } from './Product';
 import './shop.css';
+import Navbar from '../../components/Navbar';
 
 export const Shop = () => {
   const location = useLocation();
@@ -19,15 +20,15 @@ export const Shop = () => {
   }
 
   return (
+    <div>
+      <Navbar/>
     <div className='shop'>
-      <div className='shopTitle'>
-        <h1>Sillyshop</h1>
-      </div>
       <div className='products'>
         {products.map((product) => (
           <Product key={product.id} data={product} />
         ))}
       </div>
+    </div>
     </div>
   );
 };

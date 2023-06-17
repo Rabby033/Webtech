@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../axios';
 import './supplier.css';
+import Navbar from '../../components/Navbar';
 
 export const Supplier = () => {
   const [entries, setEntries] = useState([]);
@@ -31,11 +32,13 @@ export const Supplier = () => {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="supplier-container">
       <h2 className="text-center mb-4">Order list</h2>
-      <div className="card-container">
+      <div className="cardd-container">
         {entries.map(entry => (
-          <div className="card" key={entry._id}>
+          <div className="cardd" key={entry._id}>
             <h3>Client name: {entry.customername}</h3>
             <p>
               <span className="order-id">Order ID: {entry.orderid}</span>
@@ -60,6 +63,7 @@ export const Supplier = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

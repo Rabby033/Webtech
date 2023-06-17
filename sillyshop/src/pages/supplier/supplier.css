@@ -2,13 +2,13 @@
   padding: 2rem;
 }
 
-.card-container {
+.cardd-container {
   display:grid ;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
 }
 
-.card {
+.cardd {
   background-color: #f8f9fa;
   padding: 1.5rem;
   border-radius: 8px;
@@ -17,20 +17,20 @@
   color: #000000;
   margin: 20px;
 }
-.card p .order-id {
+.cardd p .order-id {
   margin-right: 22rem;
 }
 
-.card p .order-date {
+.cardd p .order-date {
   margin-left: 22rem;
 }
 
-.card h3 {
+.cardd h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.card p {
+.cardd p {
   font-size: 1.15rem;
   margin-bottom: 0.5rem;
 }

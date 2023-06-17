@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ShoppingCart } from 'phosphor-react'
 import './navbar.css'
 import axios from '../axios'
+import logoImage from '../assets/logo.jpg';
 
 export default function Navbar () {
   const [dropdownVisible, setDropdownVisible] = useState(false)
@@ -33,6 +34,11 @@ export default function Navbar () {
 
   return (
     <div className='navbar'>
+      <div className='logo'>
+       <div>
+          <p>Sillyshop</p>
+       </div>
+      </div>
       <div className='links'>
         <Link to='/shop'>Shop</Link>
         <Link to='/cart'>
@@ -40,7 +46,8 @@ export default function Navbar () {
         </Link>
         {/* Conditionally render the username dropdown */}
         {user_email !== 'admin@gmail.com' &&
-          user_email !== 'supplier@gmail.com' && user_email!='bal' && (
+          user_email !== 'supplier@gmail.com' &&
+          user_email != 'bal' && (
             <div className='dropdown'>
               <button onClick={toggleDropdown} className='username'>
                 {username}

@@ -5,6 +5,7 @@ const userinfo = require('./usermdl');
 const Userinfo=require('./User_info');
 const Orderinfo = require('./Order_info')
 const SupplyInfo = require('./Supplier_order')
+const Trans=require('./TransactionSchema')
 
 const app = express()
 const port = 3005
@@ -145,7 +146,6 @@ app.put('/transfermoney/tobank', async (req, res) => {
 
   try {
     const user = await Userinfo.findOne({ accountNumber: 12345 })
-
     if (!user) {
       return res.status(404).json({ message: 'Bank account not found' })
     }
@@ -196,7 +196,6 @@ app.put('/cutamountfrom/customer', async (req, res) => {
   const Amount = req.body.amount
   try {
     const customer = await Userinfo.findOne({ accountNumber: UserAccount })
-
     if (!customer) {
       return res.status(400).json({ message: 'Customer account not found' })
     }
@@ -239,6 +238,59 @@ app.get('/userinfo/retrive', async (req, res) => {
     res.status(500).send(err)
   }
 })
+
+
+//retrive all user api for shop admin
+app.get('/customerinfo/retrive', async (req, res) => {
+  try {
+    const data = await userinfo.find().exec()
+    res.status(200).send(data)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+
+//find bank balance of sillyshop admin
+app.get('/sillyshop/revenue', async (req, res) => {
+  try {
+    const user = await Userinfo.findOne({accountNumber:12345 }); // Use findOne to search for a single user
+    if (user) {
+      res.json(user);
+      console.log(user)
+    } else {
+      res.status(404).json({ message: 'admins bank account not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving user information' });
+  }
+});
+
+//api for transaction of bank account
+app.post('/transaction/money', async (req, res) => {
+  const tsdetails = req.body
+  // console.log(tsdetails)
+  try {
+    const data = await Trans.create(tsdetails)
+    res.status(201).send(data)
+    console.log('order stored successfully')
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+})
+
+//retrive transaction details of bank
+app.get('/transaction/details', async (req, res) => {
+  // console.log("hey man")
+  try {
+    const data = await Trans.find().exec()
+    console.log(data)
+    res.status(200).send(data)
+  } catch (err) {
+    res.status(500).send(err)
+  }
+});
+
+
 
 // Start the server
 app.listen(port, () => {
