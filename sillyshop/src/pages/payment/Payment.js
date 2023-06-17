@@ -5,12 +5,13 @@ import axios from '../../axios'
 import './payment.css'
 import { Loading } from './Loading'
 import image from '../../assets/order_confirm.png'
+import Navbar from '../../components/Navbar'
 
 export default function Payment () {
   const location = useLocation()
   const { amount } = location.state
   const status = 'Pending'
-  const { cartItems } = useContext(Shopcontext)
+  const { cartItems, clearCart } = useContext(Shopcontext)
 
   const user_email = localStorage.getItem('email')
   // console.log(user_email);
@@ -39,6 +40,7 @@ export default function Payment () {
     return trackingId
   }
   const orderid = generateTrackingId()
+  const tid = generateTrackingId()
   // console.log(orderid);
 
   useEffect(() => {
@@ -111,15 +113,27 @@ export default function Payment () {
             axios
               .put('/cutamountfrom/customer', { accno, amount })
               .then(() => {
-                // All API calls are successfully completed
-                // Set the success message
-                setSuccessMessage('Your order has been successfully placed.')
-                setIsLoading(false) // Stop loading animation
+                //make transaction
+                const sender = accno
+                const reciever = bankNo
+                axios
+                  .post('/transaction/money', { tid, sender, reciever, amount })
+                  .then(() => {
+                    // All API calls are successfully completed
+                    // Set the success message
+                    clearCart()
+                    setSuccessMessage(
+                      'Your order has been successfully placed.'
+                    )
+                    setIsLoading(false) // Stop loading animation
+                  })
               })
               .catch(error => {
                 setIsOrderFailed(true)
                 alert(error.message)
-                setIsLoading(false) // Stop loading animation
+                setIsLoading(false)
+
+                // Stop loading animation
               })
           })
           .catch(error => {
@@ -141,10 +155,13 @@ export default function Payment () {
 
   if (isSubmitClicked && successMessage) {
     return (
-      <div className='image_card'>
-        <img src={image} alt='Success' />
-        <p>Thank you for being with us.</p>
-        {/* Replace "success-image-url" with the URL of the success image */}
+      <div>
+        <Navbar/>
+        <div className='image_card'>
+          <img src={image} alt='Success' />
+          <p>Thank you for being with us.</p>
+          {/* Replace "success-image-url" with the URL of the success image */}
+        </div>
       </div>
     )
   }
@@ -160,61 +177,56 @@ export default function Payment () {
   }
 
   return (
-    <div className='main'>
-      {/* <h2>Your total cost: {amount}</h2> */}
-      {!isSearchClicked && <button onClick={search} className='btn'>Billing info</button>}
+    <div>
+      <Navbar />
+      <div className='main'>
+        {/* <h2>Your total cost: {amount}</h2> */}
+        {!isSearchClicked && (
+          <button onClick={search} className='btn'>
+            Billing info
+          </button>
+        )}
 
-      {isSearchClicked && userBalance > amount ? (
-        <div className='proceed'>
-          <h2>Current Balance: {userBalance}</h2>
-          <div>
-            <form>
-              <div className='form-field'>
-                <label htmlFor='orderId'>Name</label>
-                <input
-                  type='text'
-                  value={customername}
-                  disabled
-                />
-              </div>
-              <div className='form-field'>
-                <label htmlFor='customerName'>Email:</label>
-                <input
-                  type='text'
-                  id='customerName'
-                  value={email}
-                  disabled
-                />
-              </div>
-              <div className='form-field'>
-                <label htmlFor='customerName'>Total:</label>
-                <input
-                  type='text'
-                  id='customerName'
-                  value={amount}
-                  disabled
-                />
-              </div>
-              <div className='form-field'>
-                <label htmlFor='address'>Address:</label>
-                <input
-                  type='text'
-                  id='address'
-                   value={address}
-                  disabled
-                />
-              </div>
-              <button type='button' onClick={confirmOrder} className='btn'>Confirm Order</button>
-            </form>
+        {isSearchClicked && userBalance > amount ? (
+          <div className='proceed'>
+            <h2>Current Balance: {userBalance}</h2>
+            <div>
+              <form>
+                <div className='form-field'>
+                  <label htmlFor='orderId'>Name</label>
+                  <input type='text' value={customername} disabled />
+                </div>
+                <div className='form-field'>
+                  <label htmlFor='customerName'>Email:</label>
+                  <input type='text' id='customerName' value={email} disabled />
+                </div>
+                <div className='form-field'>
+                  <label htmlFor='customerName'>Total:</label>
+                  <input
+                    type='text'
+                    id='customerName'
+                    value={amount}
+                    disabled
+                  />
+                </div>
+                <div className='form-field'>
+                  <label htmlFor='address'>Address:</label>
+                  <input type='text' id='address' value={address} disabled />
+                </div>
+                <button type='button' onClick={confirmOrder} className='btn'>
+                  Confirm Order
+                </button>
+              </form>
+            </div>
+
+            {isSubmitClicked && !successMessage && (
+              <p>You have failed to place the order.</p>
+            )}
           </div>
-
-          {isSubmitClicked && !successMessage && (
-            <p>You have failed to place the order.</p>
-          )}
-        </div>
-      ) : (
-        isSearchClicked && <p>Sorry!! You don't have enough balance</p>
-      )}
+        ) : (
+          isSearchClicked && <p>Sorry!! You don't have enough balance</p>
+        )}
+      </div>
     </div>
   )
 }

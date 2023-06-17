@@ -8,18 +8,34 @@ import {
   faMoneyBill
 } from '@fortawesome/free-solid-svg-icons'
 import axios from '../../axios'
-import './admin.css' // Import CSS file for styling
+ import './admin.css' // Import CSS file for styling
+ import Navbar from '../../components/Navbar'
 
 export const Admin = () => {
   const [retriveorder, setretriveorder] = useState([])
+  const [revenue,setrevenue]=useState('');
+  const [retrivecustomer, setretrivecustomer] = useState([])
   const [selectedOption, setSelectedOption] = useState('dashboard') // Default selected option is 'dashboard'
+
+  useEffect(() => {
+     const fetchdata = async () => {
+      const response = await axios.get('/customerinfo/retrive')
+      const response2= await axios.get('/sillyshop/revenue')
+      // console.log(response2.data)
+      console.log(response.data)
+      setretrivecustomer(response.data)
+      setrevenue(response2.data.Balance)
+    }
+    fetchdata()
+    console.log(retrivecustomer)
+  }, [])
+
   useEffect(() => {
     const fetchdata = async () => {
       const response = await axios.get('order/details')
       console.log(response.data)
       setretriveorder(response.data)
     }
-
     fetchdata()
     console.log(retriveorder)
   }, [])
@@ -33,16 +49,18 @@ export const Admin = () => {
   }
 
   const getTotalCustomerCount = () => {
-    // Implement your logic to get the total customer count
-    return 100 // Example value
+
+    return retrivecustomer.length // Example value
   }
 
   const getTotalRevenue = () => {
     // Implement your logic to calculate the total revenue
-    return '$10,000' // Example value
+    return  revenue// Example value
   }
 
   return (
+    <div>
+      <Navbar/>
     <div className='main-container'>
       <div className='admin-container'>
         <div className='sidebar'>
@@ -72,7 +90,7 @@ export const Admin = () => {
           {selectedOption === 'dashboard' ? (
             <div>
               <div className='dashboard-cards'>
-                <div className='card order-card'>
+                <div className='card order'>
                   <div className='card-content'>
                     <FontAwesomeIcon
                       icon={faShoppingCart}
@@ -138,28 +156,35 @@ export const Admin = () => {
             <div>this is past order</div>
           ) : selectedOption === 'customers' ? (
             <div>
-              <table className='customer'>
+              <table className='recentorder'>
                 <thead>
                   <tr>
+                    <th>Serial No</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Adress</th>
-                    <th>AccountNumber</th>
+                    <th>Address</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Abu Hanifa</td>
-                    <td>abuhanifa@gmail.com</td>
-                    <td>Akhalia,sylhet</td>
-                    <td>2018331213</td>
-                  </tr>
+                  {retrivecustomer.map(
+                    (
+                      user,
+                      index // Fixed typo in variable name
+                    ) => (
+                      <tr key={index}>
+                        <td>{index+1}</td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.address}</td>
+                      </tr>
+                    )
+                  )}
                 </tbody>
               </table>
             </div>
           ) : (
             <div>
-              <h3>All order</h3>
+              {/* <h3>All order</h3> */}
               <table className='recentorder'>
                 <thead>
                   <tr>
@@ -202,6 +227,7 @@ export const Admin = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   )
 }

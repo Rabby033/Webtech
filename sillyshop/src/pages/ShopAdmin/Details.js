@@ -6,6 +6,7 @@ import { products } from '../../products'
 import { Single_product } from './Single_product'
 import axios from './../../axios'
 import { Loading } from '../payment/Loading'
+import Navbar from '../../components/Navbar';
 
 export const Details = () => {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ export const Details = () => {
 
   return (
     <div>
+      <Navbar/>
       <h3 className='title'> Order Details </h3>
       <div className='container'>
         <div className='cart-section'>

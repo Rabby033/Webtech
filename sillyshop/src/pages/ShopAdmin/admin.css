@@ -49,7 +49,7 @@
   
   .card {
     flex-basis: calc(33.33% - 20px); /* Adjust the width of each card as needed */
-    background-color: #f5f5f5;
+    background-color: #e92c2c;
     border-radius: 6px;
     padding: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -94,7 +94,7 @@
   }
   
   .order-card {
-    background-color: #3671e6; 
+    background-color: #1259e8; 
     /* Change background color for order card */
   }
   
@@ -130,7 +130,7 @@
   
 
 .recentorder thead th {
-  background-color: #f4f4f4;
+  background-color: #080000;
   text-align: left;
 }
 
