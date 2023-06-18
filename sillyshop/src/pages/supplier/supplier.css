@@ -1,59 +1,121 @@
+/* supplier.css */
+
+/* Container styles */
 .supplier-container {
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-.cardd-container {
-  display:grid ;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.cardd {
-  background-color: #f8f9fa;
-  padding: 1.5rem;
+/* Card styles */
+.card {
+  background-color: #f7f7f7;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(to bottom right, #f2de90, #a84010);
-  color: #000000;
-  margin: 20px;
-}
-.cardd p .order-id {
-  margin-right: 22rem;
-}
-
-.cardd p .order-date {
-  margin-left: 22rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  padding: 20px;
+  width: 300px;
+  display: flex; /* Add this line */
+  flex-direction: column; /* Add this line */
 }
 
-.cardd h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+/* Heading styles */
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.cardd p {
-  font-size: 1.15rem;
-  margin-bottom: 0.5rem;
+h3 {
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
+h4 {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Order details styles */
+p {
+  color: #888;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: flex; /* Add this line */
+  justify-content: space-between; /* Add this line */
+}
+
+.order-id,
+.order-date {
+  display: block;
+  margin-bottom: 5px;
+}
+
+ul {
+  color: #555;
+  font-size: 14px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+/* Button styles */
 .buttons-container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .accept-button,
 .deliver-button {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  background-color: #00b828;
-  color: #fff;
+  background-color: #4caf50;
   border: none;
   border-radius: 4px;
+  color: #fff;
   cursor: pointer;
+  font-size: 14px;
+  margin: 0 5px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .accept-button:hover,
 .deliver-button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
+}
+
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #207e24;
+  color: #fff;
+  padding: 35px 55px;
+  border-radius: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  display: none;
+  font-size: 18px;
+  
+}
+
+.notification.show {
+  display: block;
 }

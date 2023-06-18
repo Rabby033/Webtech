@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const userinfo = require('./usermdl');
-const Userinfo=require('./User_info');
+const Userinfo = require('./User_info');
 const Orderinfo = require('./Order_info')
 const SupplyInfo = require('./Supplier_order')
 const Trans=require('./TransactionSchema')
@@ -289,6 +289,75 @@ app.get('/transaction/details', async (req, res) => {
     res.status(500).send(err)
   }
 });
+
+
+//status change to deivered
+app.post('/api/delivered', async (req, res) => {
+  console.log("hi deli");
+  const {orderId } = req.body;
+  console.log(orderId)
+ try {
+  const order = await SupplyInfo.findOne({ orderid:orderId })
+  const aorder = await Orderinfo.findOne({ orderid:orderId })
+   if (!order) {
+      return res.status(404).json({ message: 'Order not found' });}
+   order.status = 'Delivered'
+   if(aorder)
+    {
+      
+      aorder.status = 'Delivered';
+      await aorder.save();
+    }
+
+
+   await order.save()
+   
+   console.log(order.status);
+
+   res.status(200).json({ message: 'Order status updated to approved' })
+
+ } catch (error) {
+   console.error(error)
+   res.status(500).json({ message: 'Internal server error' })
+ }
+})
+
+
+app.post('/api/transfer', async (req, res) => {
+  console.log("hi");
+  const { fromAccount, toAccount, amount } = req.body;
+  console.log(fromAccount,toAccount,amount);
+
+  try {
+    const adminAcc = await Userinfo.findOne({ accountNumber: fromAccount })
+    const suppliarAcc = await Userinfo.findOne({ accountNumber: toAccount })
+    
+    adminAcc.Balance -= amount
+    suppliarAcc.Balance += amount
+    
+    await adminAcc.save();
+    await suppliarAcc.save();
+    res.json({ message: 'Transfer completed successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Transfer failed' });
+  }
+});
+
+app.post('/api/notifyorders', async (req, res) => {
+  
+  const { username} = req.body;
+
+  try {
+    const orders = await SupplyInfo.find({ customername : username , status: "Delivered"});
+    console.log("notify9",username,orders);
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 

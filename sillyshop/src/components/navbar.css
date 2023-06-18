@@ -95,3 +95,85 @@
   color:white;
   /* position: absolute; */
 }
+
+.notification-icon-wrapper {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:#fff;
+}
+
+.notification-icon-wrapper:hover {
+  opacity: 0.8;
+}
+.notification-dropdown {
+  position: absolute;
+  top: 10%;
+  right: 0;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 10;
+  transform: translateY(10px);
+}
+
+
+
+
+.notification-dropdown-header {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.notification-dropdown-header h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.notification-dropdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-dropdown-item {
+  margin-bottom: 40px;
+}
+
+.order-id,
+.order-date {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.order-details {
+  margin: 5px 0;
+  color: #2da004;
+}
+
+.order-money {
+  margin: 5px 0;
+}
+
+.order-money span {
+  font-weight: bold;
+  margin-right: 200px;
+
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.order-actions button {
+  margin-left: 10px;
+}
