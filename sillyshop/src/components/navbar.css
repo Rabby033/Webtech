@@ -10,16 +10,22 @@
   position: absolute;
   left: 20px; /* Adjust the left position as needed */
   display: flex;
+  /* margin-top: -10px; */
+  font-size: 20px;
   align-items: center;
 }
 
 .logo div {
   font-family: 'Cinzel Decorative', cursive;
   font-size: 25px;
-  color: white;
+  color: rgb(232, 11, 11);
   margin: 0;
 }
 
+.name{
+  color: white;
+  font-size: 20px;
+}
 .links {
   margin-right: 50px;
   display: flex;
@@ -113,9 +119,9 @@
   top: 10%;
   right: 0;
   width: 300px;
-  background-color: #fff;
+  background-color: #cecece;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
   z-index: 10;
   transform: translateY(10px);
@@ -176,4 +182,9 @@
 
 .order-actions button {
   margin-left: 10px;
+}
+.bal{
+  color: rgb(247, 247, 247);
+  margin-top: -5px;
+  font-size: 20px;
 }

@@ -36,7 +36,7 @@ export default function Navbar () {
     <div className='navbar'>
       <div className='logo'>
        <div>
-          <p >Sillyshop Bank</p>
+          <p className='bal'>Sillyshop Bank</p>
        </div>
       </div>
     </div>

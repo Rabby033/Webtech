@@ -1,22 +1,23 @@
-import product1 from './assets/iphone.jpeg';
-import product2 from './assets/guiter.jpg';
+import product1 from './assets/controler.jpg';
+import product2 from './assets/headset.jpg'
+import product3 from './assets/mouse.jpg'
 export const products=[
     {
         id:1,
-        productName:"Guiter",
-        price:555,
+        productName:"Havit Controller",
+        price:1000,
         productImage:product1
     },
     {
         id:2,
-        productName:"Iphone 14",
-        price:999,
+        productName:"Anivia Headset",
+        price:500,
         productImage:product2
     },
     {
         id:3,
-        productName:"Guiter",
-        price:555,
-        productImage:product1
+        productName:"X12 Gaming Mouse",
+        price:300,
+        productImage:product3
     },
 ]

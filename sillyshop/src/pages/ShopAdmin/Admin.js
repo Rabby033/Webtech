@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import axios from '../../axios'
  import './admin.css' // Import CSS file for styling
- import Navbar from '../../components/Navbar'
+ import Navbar from '../../components/AdminNavbar.js'
 
 export const Admin = () => {
   const [retriveorder, setretriveorder] = useState([])
