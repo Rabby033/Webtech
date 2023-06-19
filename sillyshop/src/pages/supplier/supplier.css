@@ -1,4 +1,4 @@
-/* supplier.css */
+supplier.css
 
 /* Container styles */
 .supplier-container {
@@ -8,19 +8,20 @@
   padding: 20px;
 }
 
-.card-container {
+.caard-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-/* Card styles */
-.card {
-  background-color: #f7f7f7;
+/* caard styles */
+.caard {
+  background-color: #eadfdf;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin: 10px;
   padding: 20px;
+  margin-right: 50px;
   width: 300px;
   display: flex; /* Add this line */
   flex-direction: column; /* Add this line */
@@ -48,9 +49,9 @@ h4 {
 
 /* Order details styles */
 p {
-  color: #888;
+  color: #030000;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   display: flex; /* Add this line */
   justify-content: space-between; /* Add this line */
 }

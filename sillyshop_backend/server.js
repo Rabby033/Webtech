@@ -194,6 +194,8 @@ app.put('/adminorder/status', async (req, res) => {
 app.put('/cutamountfrom/customer', async (req, res) => {
   const UserAccount = req.body.accno
   const Amount = req.body.amount
+  console.log(UserAccount)
+  console.log(Amount);
   try {
     const customer = await Userinfo.findOne({ accountNumber: UserAccount })
     if (!customer) {
